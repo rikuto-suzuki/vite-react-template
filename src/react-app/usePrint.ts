@@ -118,7 +118,7 @@ export function usePrint() {
     setTimeout(() => {
       printWindow.focus();
       printWindow.print();
-      printWindow.close();
+      //   printWindow.close();
     }, 500);
   };
 
