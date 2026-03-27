@@ -1,7 +1,10 @@
 // src/App.tsx
 import "./App.css";
+import { usePrint } from "./usePrint";
 
 function App() {
+  const { print } = usePrint();
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -20,7 +23,7 @@ function App() {
 
   return (
     <>
-      <button onClick={() => window.print()}>Print</button>
+      <button onClick={() => print(<div>Print Content</div>)}>Print</button>
       <button onClick={handleShare}>Share</button>
     </>
   );
