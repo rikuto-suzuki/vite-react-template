@@ -2,6 +2,46 @@
 import "./App.css";
 import { usePrint } from "./usePrint";
 
+function CloseButton() {
+  const handleClick = () => {
+    window.close();
+  };
+
+  return <button onClick={handleClick}>Close</button>;
+}
+
+function PrintContent() {
+  return (
+    <>
+      <div
+        className="no-print"
+        style={{
+          position: "absolute",
+          top: "50%",
+          right: "50%",
+          transform: "translate(50%, -50%)",
+          margin: "10px",
+          padding: "5px 10px",
+        }}
+      >
+        <CloseButton />
+      </div>
+      <div className="document">
+        <header>
+          <h1>Document Title</h1>
+        </header>
+        <main>
+          <p>This is the main content of the document.</p>
+          <p>It can include multiple paragraphs, images, and other elements.</p>
+        </main>
+        <footer>
+          <p>Document Footer</p>
+        </footer>
+      </div>
+    </>
+  );
+}
+
 function App() {
   const { print } = usePrint();
 
@@ -23,7 +63,7 @@ function App() {
 
   return (
     <>
-      <button onClick={() => print(<div>Print Content</div>)}>Print</button>
+      <button onClick={() => print(<PrintContent />)}>Print</button>
       <button onClick={handleShare}>Share</button>
     </>
   );
