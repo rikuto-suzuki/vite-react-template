@@ -1,31 +1,10 @@
 // src/App.tsx
 import "./App.css";
-import { usePrint } from "./usePrint";
-
-function CloseButton() {
-  const handleClick = () => {
-    window.close();
-  };
-
-  return <button onClick={handleClick}>Close</button>;
-}
+import { useIframePrint } from "./useIframePrint";
 
 function PrintContent() {
   return (
     <>
-      <div
-        className="no-print"
-        style={{
-          position: "absolute",
-          top: "50%",
-          right: "50%",
-          transform: "translate(50%, -50%)",
-          margin: "10px",
-          padding: "5px 10px",
-        }}
-      >
-        <CloseButton />
-      </div>
       <div className="document">
         <header>
           <h1>Document Title</h1>
@@ -43,7 +22,7 @@ function PrintContent() {
 }
 
 function App() {
-  const { print } = usePrint();
+  const { print } = useIframePrint();
 
   const handleShare = async () => {
     if (navigator.share) {
