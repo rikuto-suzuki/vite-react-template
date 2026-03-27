@@ -129,7 +129,10 @@ export function useIframePrint() {
     setTimeout(() => {
       iframeWindow.focus();
       iframeWindow.print();
-      //   document.body.removeChild(iframe);
+
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 1000);
     }, 500);
   };
 

@@ -12,6 +12,7 @@ function PrintContent() {
         <main>
           <p>This is the main content of the document.</p>
           <p>It can include multiple paragraphs, images, and other elements.</p>
+          <p className="no-print">This content will not be printed.</p>
         </main>
         <footer>
           <p>Document Footer</p>
