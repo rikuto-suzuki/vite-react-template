@@ -127,8 +127,10 @@ export function useIframePrint() {
     const root = createRoot(rootElement);
     root.render(component);
 
-    iframeWindow.focus();
-    iframeWindow.print();
+    setTimeout(() => {
+      iframeWindow.focus();
+      iframeWindow.print();
+    }, 500);
   };
 
   return { print };
