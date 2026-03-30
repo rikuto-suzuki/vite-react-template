@@ -43,7 +43,13 @@ function App() {
 
   return (
     <>
-      <button onClick={() => print(<PrintContent />)}>Print</button>
+      <button
+        onClick={() => {
+          print(<PrintContent />);
+        }}
+      >
+        Print
+      </button>
       <button onClick={handleShare}>Share</button>
     </>
   );

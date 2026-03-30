@@ -9,6 +9,7 @@ export function useIframePrint() {
     iframe.style.height = "0";
     iframe.style.border = "none";
     iframe.style.visibility = "hidden";
+    iframe.id = "print-iframe";
 
     document.body.appendChild(iframe);
     const iframeWindow = iframe.contentWindow;
@@ -126,14 +127,8 @@ export function useIframePrint() {
     const root = createRoot(rootElement);
     root.render(component);
 
-    setTimeout(() => {
-      iframeWindow.focus();
-      iframeWindow.print();
-
-      setTimeout(() => {
-        document.body.removeChild(iframe);
-      }, 1000);
-    }, 500);
+    iframeWindow.focus();
+    iframeWindow.print();
   };
 
   return { print };
