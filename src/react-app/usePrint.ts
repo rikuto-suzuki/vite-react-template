@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
 
-// TODO Reactのプリレンダーを利用して、印刷用のHTMLを生成する方法も検討する
 export function usePrint() {
   const print = (component: React.ReactNode) => {
     const printWindow = window.open("", "_blank");
@@ -33,7 +32,7 @@ export function usePrint() {
             }
 
             .table {
-              font-size: 0.85rem;
+              font-size: 0.65rem;
               width: 100%;
               border-collapse: collapse;
             }
@@ -41,7 +40,7 @@ export function usePrint() {
             .table th,
             .table td {
               border: 1px solid #ccc;
-              padding: 8px;
+              padding: 2mm;
             }
 
             @media print {
@@ -60,13 +59,12 @@ export function usePrint() {
               /* 不要要素を非表示 */
               .no-print {
                 display: none !important;
-                display: hidden;
               }
 
               /* ページサイズ指定 */
               @page {
-                size: A4 landscape;
-                margin: 20mm;
+                size: A4;
+                margin: 10mm;
               }
 
               /* ページ単位の制御 */
@@ -97,11 +95,6 @@ export function usePrint() {
               tfoot {
                 display: table-footer-group;
               }
-
-              /* フォントサイズ調整（印刷向け） */
-              body {
-                font-size: 12pt;
-              }
             }
           </style>
         </head>
@@ -112,14 +105,30 @@ export function usePrint() {
     `;
 
     const rootElement = printWindow.document.getElementById("root");
+    if (!rootElement) return;
     const root = createRoot(rootElement!);
     root.render(component);
 
-    setTimeout(() => {
+    const doPrint = () => {
       printWindow.focus();
       printWindow.print();
-      //   printWindow.close();
-    }, 500);
+      // レンダリング結果を残すため、閉じないようにする（ユーザーが手動で閉じる）
+    };
+
+    const schedulePrint = () => {
+      // レイアウト/ペイント完了を待つために requestAnimationFrame を利用
+      if (typeof printWindow.requestAnimationFrame === "function") {
+        printWindow.requestAnimationFrame(() => {
+          // 余裕を持ってもう 1 フレーム待つ
+          printWindow.requestAnimationFrame(doPrint);
+        });
+      } else {
+        // requestAnimationFrame が利用できない場合は、500ms 待機してから印刷
+        setTimeout(doPrint, 500);
+      }
+    };
+
+    schedulePrint();
   };
 
   return { print };

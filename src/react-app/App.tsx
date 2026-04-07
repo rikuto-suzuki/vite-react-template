@@ -1,6 +1,7 @@
 // src/App.tsx
 import "./App.css";
 import { useIframePrint } from "./useIframePrint";
+import { usePrint } from "./usePrint";
 
 function PrintContent() {
   return (
@@ -23,7 +24,7 @@ function PrintContent() {
 }
 
 function App() {
-  const { print } = useIframePrint();
+  const { print } = usePrint();
 
   const handleShare = async () => {
     if (navigator.share) {
