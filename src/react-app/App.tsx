@@ -1,6 +1,5 @@
 // src/App.tsx
 import "./App.css";
-import { useIframePrint } from "./useIframePrint";
 import { usePrint } from "./usePrint";
 
 function PrintContent() {
