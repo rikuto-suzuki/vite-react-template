@@ -25,6 +25,15 @@ function PrintContent() {
 function App() {
   const { print } = usePrint();
 
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const handlePrint = async () => {
+    await sleep(1000); // Simulate a delay before printing
+    const printContent = <PrintContent />;
+    print(printContent);
+  };
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -43,13 +52,7 @@ function App() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          print(<PrintContent />);
-        }}
-      >
-        Print
-      </button>
+      <button onClick={handlePrint}>Print</button>
       <button onClick={handleShare}>Share</button>
     </>
   );
